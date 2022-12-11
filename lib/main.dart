@@ -49,16 +49,35 @@ class MyHomePage extends StatelessWidget {
         ),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const SizedBox(
+          Container(
             width: double.infinity,
-            child: Card(
+            child: const Card(
               color: Colors.yellow,
               elevation: 5,
               child: Text(
                 'CHART!',
+              ),
+            ),
+          ),
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  TextFormField(
+                    decoration: const InputDecoration(labelText: "Title"),
+                  ),
+                  TextFormField(
+                    decoration: const InputDecoration(labelText: "Amount"),
+                  ),
+                  TextButton(
+                    onPressed: () {},
+                    child: const Text("Add Transaction"),
+                  )
+                ],
               ),
             ),
           ),
