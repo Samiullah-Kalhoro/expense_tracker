@@ -25,6 +25,11 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatelessWidget {
   MyHomePage({super.key});
 
+  final amountController = TextEditingController();
+  // String titleInput = "";
+  // String amountInput = "";
+  final titleController = TextEditingController();
+
   final List<Transaction> transactions = [
     Transaction(
       id: "t1",
@@ -68,13 +73,20 @@ class MyHomePage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   TextFormField(
+                    controller: titleController,
                     decoration: const InputDecoration(labelText: "Title"),
+                    // onChanged: (value) => titleInput = value,
                   ),
                   TextFormField(
+                    controller: amountController,
                     decoration: const InputDecoration(labelText: "Amount"),
+                    // onChanged: (value) => amountInput = value,
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      print(titleController.text);
+                      print(amountController.text);
+                    },
                     child: const Text("Add Transaction"),
                   )
                 ],
