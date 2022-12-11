@@ -32,10 +32,13 @@ class MyHomePage extends StatelessWidget {
         ),
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: const [
           SizedBox(
             width: double.infinity,
             child: Card(
+              color: Colors.yellow,
               elevation: 5,
               child: Text(
                 'CHART!',
@@ -43,6 +46,7 @@ class MyHomePage extends StatelessWidget {
             ),
           ),
           Card(
+            color: Colors.red,
             child: Text("List of TX"),
           ),
         ],
