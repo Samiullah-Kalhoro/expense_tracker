@@ -50,8 +50,8 @@ class MyHomePage extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: const [
-          SizedBox(
+        children: [
+          const SizedBox(
             width: double.infinity,
             child: Card(
               color: Colors.yellow,
@@ -61,9 +61,12 @@ class MyHomePage extends StatelessWidget {
               ),
             ),
           ),
-          Card(
-            color: Colors.red,
-            child: Text("List of TX"),
+          Column(
+            children: transactions.map((tx) {
+              return Card(
+                child: Text(tx.title),
+              );
+            }).toList(),
           ),
         ],
       ),
