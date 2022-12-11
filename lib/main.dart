@@ -78,7 +78,7 @@ class MyHomePage extends StatelessWidget {
                     ),
                     padding: const EdgeInsets.all(10.0),
                     child: Text(
-                      tx.amount.toString(),
+                      "\$${tx.amount}",
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20.0,
@@ -87,20 +87,19 @@ class MyHomePage extends StatelessWidget {
                     ),
                   ),
                   Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         tx.title,
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 15.0,
+                          fontSize: 16.0,
                         ),
                       ),
                       Text(
-                        tx.date.toString(),
+                        "${tx.date}",
                         style: const TextStyle(
-                          fontSize: 10.0,
+                          fontSize: 11.0,
                           color: Colors.grey,
                         ),
                       ),
