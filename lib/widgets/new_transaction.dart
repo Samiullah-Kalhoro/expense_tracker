@@ -34,7 +34,7 @@ class NewTransaction extends StatelessWidget {
                 );
               },
               child: const Text("Add Transaction"),
-            )
+            ),
           ],
         ),
       ),

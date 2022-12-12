@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:personal_expense_tracker/widgets/user_transactions.dart';
-
+import './widgets/user_transactions.dart';
 
 void main() {
   runApp(const MyApp());
@@ -25,11 +24,6 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
 
-  // final amountController = TextEditingController();
-  // String titleInput = "";
-  // String amountInput = "";
-  // final titleController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,21 +32,23 @@ class MyHomePage extends StatelessWidget {
           'Personal Expense Tracker',
         ),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: const [
-          SizedBox(
-            width: double.infinity,
-            child: Card(
-              color: Colors.yellow,
-              elevation: 5,
-              child: Text(
-                'CHART!',
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: const [
+            SizedBox(
+              width: double.infinity,
+              child: Card(
+                color: Colors.yellow,
+                elevation: 5,
+                child: Text(
+                  'CHART!',
+                ),
               ),
             ),
-          ),
-          UserTransactions(),
-        ],
+            UserTransactions(),
+          ],
+        ),
       ),
     );
   }
