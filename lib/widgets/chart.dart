@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import '../widgets/chart_bar.dart';
 
 import '../models/transaction_model.dart';
 
@@ -30,15 +31,34 @@ class Chart extends StatelessWidget {
     });
   }
 
+  double get totalSpending {
+    return groupedTransactionValues.fold(0.0, (previousValue, element) {
+      return previousValue + (element['amount'] as double);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 6,
       margin: const EdgeInsets.all(20),
-      child: Row(
-        children: groupedTransactionValues.map((data) {
-          return Text('${data['day']} : ${data['amount']}');
-        }).toList(),
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: groupedTransactionValues.map((data) {
+            return Flexible(
+              fit: FlexFit.tight,
+              child: ChartBar(
+                label: data['day'].toString(),
+                spendingAmount: data['amount'] as double,
+                spendingPctOfTotal: (totalSpending == 0.0
+                    ? 0.0
+                    : (data["amount"] as double) / totalSpending),
+              ),
+            );
+          }).toList(),
+        ),
       ),
     );
   }
