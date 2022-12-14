@@ -11,56 +11,75 @@ class TransactionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height * .6,
-      child: ListView.builder(
-        itemBuilder: (context, index) {
-          return Card(
-            child: Row(children: [
-              Container(
-                margin: const EdgeInsets.symmetric(
-                  vertical: 10,
-                  horizontal: 15,
+      height: MediaQuery.of(context).size.height * .8,
+      child: transactions.isEmpty
+          ? Column(
+              children: [
+                Text(
+                  "No Transactions added yet!",
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Theme.of(context).primaryColor,
-                    width: 2,
+                const SizedBox(
+                  height: 20,
+                ),
+                SizedBox(
+                  height: 200,
+                  child: Image.asset(
+                    "assets/images/waiting.png",
+                    fit: BoxFit.contain,
                   ),
                 ),
-                padding: const EdgeInsets.all(10.0),
-                child: Text(
-                  '\$${transactions[index].amount.toStringAsFixed(2)}',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20.0,
-                    color: Theme.of(context).primaryColor,
-                  ),
-                ),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    transactions[index].title,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16.0,
+              ],
+            )
+          : ListView.builder(
+              itemBuilder: (context, index) {
+                return Card(
+                  child: Row(children: [
+                    Container(
+                      margin: const EdgeInsets.symmetric(
+                        vertical: 10,
+                        horizontal: 15,
+                      ),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Theme.of(context).primaryColor,
+                          width: 2,
+                        ),
+                      ),
+                      padding: const EdgeInsets.all(10.0),
+                      child: Text(
+                        '\$${transactions[index].amount.toStringAsFixed(2)}',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20.0,
+                          color: Theme.of(context).primaryColor,
+                        ),
+                      ),
                     ),
-                  ),
-                  Text(
-                    DateFormat.yMMMd().format(transactions[index].date),
-                    style: const TextStyle(
-                      fontSize: 11.0,
-                      color: Colors.grey,
-                    ),
-                  ),
-                ],
-              )
-            ]),
-          );
-        },
-        itemCount: transactions.length,
-      ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          transactions[index].title,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16.0,
+                          ),
+                        ),
+                        Text(
+                          DateFormat.yMMMd().format(transactions[index].date),
+                          style: const TextStyle(
+                            fontSize: 11.0,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ],
+                    )
+                  ]),
+                );
+              },
+              itemCount: transactions.length,
+            ),
     );
   }
 }
