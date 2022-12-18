@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import './widgets/chart.dart';
@@ -133,10 +135,12 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => _startAddNewTransaction(context),
-        child: const Icon(Icons.add),
-      ),
+      floatingActionButton: Platform.isIOS
+          ? Container()
+          : FloatingActionButton(
+              onPressed: () => _startAddNewTransaction(context),
+              child: const Icon(Icons.add),
+            ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       appBar: appBar,
       body: SingleChildScrollView(
@@ -148,7 +152,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text("Show  Chart"),
-                  Switch(
+                  Switch.adaptive(
                       value: _showChart,
                       onChanged: ((val) {
                         setState(() {
