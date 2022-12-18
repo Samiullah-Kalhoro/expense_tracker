@@ -114,19 +114,17 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final isLandscape = mediaQuery.orientation == Orientation.landscape;
-    final PreferredSizeWidget appBar = Platform.isIOS
-        ? CupertinoNavigationBar()
-        : AppBar(
-            title: const Text(
-              'Personal Expense Tracker',
-            ),
-            actions: [
-              IconButton(
-                onPressed: () => _startAddNewTransaction(context),
-                icon: const Icon(Icons.add),
-              )
-            ],
-          ) as PreferredSizeWidget;
+    final appBar = AppBar(
+      title: const Text(
+        'Personal Expense Tracker',
+      ),
+      actions: [
+        IconButton(
+          onPressed: () => _startAddNewTransaction(context),
+          icon: const Icon(Icons.add),
+        )
+      ],
+    );
     var txListWidget = SizedBox(
       height: (mediaQuery.size.height -
               appBar.preferredSize.height -
