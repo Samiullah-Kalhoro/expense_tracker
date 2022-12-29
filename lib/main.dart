@@ -52,9 +52,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  bool _showChart = false;
   final List<TransactionModel> _userTransactions = [
     // TransactionModel(
-
 
     // ),
     // TransactionModel(
@@ -64,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
     //   date: DateTime.now(),
     // ),
   ];
-  bool _showChart = false;
+
   List<TransactionModel> get _resentTransactions {
     return _userTransactions.where((element) {
       return element.date.isAfter(
@@ -108,6 +108,57 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  List<Widget> _buildLandscapeContent(
+    MediaQueryData mediaQuery,
+    AppBar appBar,
+    Widget txListWidget,
+  ) {
+    return [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "Show  Chart",
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+          Switch.adaptive(
+              value: _showChart,
+              onChanged: ((val) {
+                setState(() {
+                  _showChart = val;
+                });
+              })),
+        ],
+      ),
+      _showChart
+          ? SizedBox(
+              height: (mediaQuery.size.height -
+                      appBar.preferredSize.height -
+                      mediaQuery.padding.top) *
+                  .7,
+              child: Chart(_resentTransactions),
+            )
+          : txListWidget
+    ];
+  }
+
+  List<Widget> _buildPortraitContent(
+    MediaQueryData mediaQuery,
+    AppBar appBar,
+    Widget txListWidget,
+  ) {
+    return [
+      SizedBox(
+        height: (mediaQuery.size.height -
+                appBar.preferredSize.height -
+                mediaQuery.padding.top) *
+            .3,
+        child: Chart(_resentTransactions),
+      ),
+      txListWidget
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
@@ -136,47 +187,15 @@ class _MyHomePageState extends State<MyHomePage> {
 
     final pageBody = SafeArea(
       child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            if (isLandscape)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Show  Chart",
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                  Switch.adaptive(
-                      value: _showChart,
-                      onChanged: ((val) {
-                        setState(() {
-                          _showChart = val;
-                        });
-                      })),
-                ],
-              ),
-            if (!isLandscape)
-              SizedBox(
-                height: (mediaQuery.size.height -
-                        appBar.preferredSize.height -
-                        mediaQuery.padding.top) *
-                    .3,
-                child: Chart(_resentTransactions),
-              ),
-            if (!isLandscape) txListWidget,
-            if (isLandscape)
-              _showChart
-                  ? SizedBox(
-                      height: (mediaQuery.size.height -
-                              appBar.preferredSize.height -
-                              mediaQuery.padding.top) *
-                          .7,
-                      child: Chart(_resentTransactions),
-                    )
-                  : txListWidget
-          ],
-        ),
+        child:
+            Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+          if (isLandscape)
+            //using spread operator  (...) these three dots pulls out all the elemets out of
+            //that list and merge them as a single elements
+            ..._buildLandscapeContent(mediaQuery, appBar, txListWidget),
+          if (!isLandscape)
+            ..._buildPortraitContent(mediaQuery, appBar, txListWidget),
+        ]),
       ),
     );
 
